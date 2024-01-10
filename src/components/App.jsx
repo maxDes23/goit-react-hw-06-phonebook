@@ -9,7 +9,7 @@ import {
   deleteContact,
   setFilter,
   loadContacts,
-} from './contacts.Slice';
+} from './contactsSlice';
 
 const Container = styled.div`
   display: flex;
