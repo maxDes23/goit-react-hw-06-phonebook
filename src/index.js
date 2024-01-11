@@ -1,30 +1,23 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import contactsReducer from './components/contactsSlice';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 import App from './components/App';
-import { loadState, saveState } from './redux/localStorage';
-import './index.css';
 
-const persistedState = loadState();
+const rootElement = document.getElementById('root');
 
-const store = configureStore({
-  reducer: {
-    contacts: contactsReducer,
-  },
-  preloadedState: persistedState,
-});
+const render = Component => {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Component />
+        </PersistGate>
+      </Provider>
+    </React.StrictMode>
+  );
+};
 
-store.subscribe(() => {
-  saveState(store.getState());
-});
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
- 
-);
+render(App);

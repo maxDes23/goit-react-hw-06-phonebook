@@ -1,4 +1,3 @@
-
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
@@ -14,5 +13,13 @@ export const saveState = state => {
     localStorage.setItem('state', serializedState);
   } catch (err) {
     console.error('Error saving state to localStorage:', err);
+  }
+};
+
+export const clearState = () => {
+  try {
+    localStorage.removeItem('state');
+  } catch (err) {
+    console.error('Error clearing state from localStorage:', err);
   }
 };
