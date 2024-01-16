@@ -46,9 +46,12 @@ const App = () => {
     dispatch(setFilter(e.target.value));
   };
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+ const filteredContacts = contacts
+   ? contacts.filter(contact =>
+       contact.name.toLowerCase().includes(filter.toLowerCase())
+     )
+   : [];
+
 
   return (
     <Container>
